@@ -1,0 +1,31 @@
+<div id="wrapper">
+    <h2>LOGIN</h2>
+    <form>
+        <label>username</label><input type="text" [formControl]="username"/>
+        <label>password</label><input type="password" [formControl]="password"/>
+        <input type="button" value="login" (click)="tryLogin()"/>
+    </form>
+    <hr/>
+    <span>firebase</span>
+    <hr/>
+    <h2>FB SIGNUP</h2>
+    <form>
+        <input type="button" value="signup" (click)="tryFbSignUp()"/>
+    </form>
+    <h2>FB LOGIN</h2>
+    <form>
+        <input type="button" value="login" (click)="tryFbLogin()"/>
+    </form>
+    <h2>FB LOGOUT</h2>
+    <form>
+        <input type="button" value="logout" (click)="tryFbLogout()"/>
+    </form>
+    <hr/>
+    <span>firestore</span>
+    <hr/>
+    <h2>FIRESTORE READ</h2>
+    <form>
+        <input type="button" value="read" (click)="tryFbReadData()"/>
+    </form>
+    <div>checksum reversed {{ "ukqt3ruasciuj456w" | stringReverse }}</div>
+</div>

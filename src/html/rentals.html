@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+            padding-top: 50px;
+            background-color: aqua;
+        }
+
+        #rentalListContainer>h1 {
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            padding-left: 50px;
+            font-size: 50px;
+        }
+
+        #rentalListContainer {
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: center;
+            width: 100%;
+        }
+
+        #rentalList {
+            width: 95%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            padding: 10px;
+        }
+
+        .rental {
+            justify-content: center;
+            align-self: center;
+            border-radius: 5px;
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            height: 310px;
+        }
+
+        .rentalImage {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 22px;
+            text-shadow: 1px 0px 0px black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 0px 1px 5px black;
+        }
+
+        .rentalDetail {
+            background-color: white;
+            font-family: Georgia, serif;
+            font-size: 21px;
+            width: 70%;
+            height: 200px;
+            box-shadow: 0px 1px 5px black;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 30px;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        class Rental {
+            constructor(city, streetName, streetNumber, floorLevel) {
+                this.city = city;
+                this.streetName = streetName;
+                this.streetNumber = streetNumber;
+                this.floorLevel = floorLevel;
+            }
+            rentalKeyString() {
+                return `${this.streetName}_${this.streetNumber}_${this.floorLevel}`;
+            }
+        }
+        let rentals = [new Rental('South Hectorside', 'Jackie Village', 7892, 56), new Rental('Dakotabury', 'Allison Heights', 5606, 53), new Rental('South Michaelside', 'Steele Roads', 6220, 87), new Rental('Lake Lisa', 'Joseph Fort', 9049, 49), new Rental('New Tylerport', 'Joseph Ports', 4682, 64), new Rental('West Brittanybury', 'Susan River', 6065, 29), new Rental('Townsendchester', 'Kelsey Walk', 4270, 83), new Rental('Zacharyburgh', 'Samantha Flat', 4386, 17), new Rental('East Todd', 'James Island', 3486, 67), new Rental('Port Jeremyside', 'Rodney Springs', 8567, 14), new Rental('North Marissa', 'Kevin Shoal', 2493, 59), new Rental('Port Richardhaven', 'Calhoun Trail', 2006, 88), new Rental('East Donaldland', 'Carr Via', 7549, 64), new Rental('Keybury', 'Gomez Extension', 4931, 94), new Rental('South Ashley', 'Michael Mews', 5169, 61), new Rental('Tranville', 'Bobby Club', 5271, 13), new Rental('Kendraland', 'Brown Trafficway', 8174, 29), new Rental('Karlachester', 'Crystal Islands', 1487, 87), new Rental('New Mark', 'Jeff Unions', 9818, 71), new Rental('North Todd', 'Ross Ville', 7104, 65), new Rental('Kathrynbury', 'Sarah Oval', 5795, 24), new Rental('Lisaland', 'Megan Circles', 6579, 64), new Rental('Lake Paul', 'Patricia Fall', 9825, 77), new Rental('New Michael', 'Christopher Row', 4939, 18), new Rental('North David', 'Hawkins Mountains', 6695, 57), new Rental('Allisonberg', 'Carr Ferry', 6684, 92), new Rental('Kaufmanland', 'Makayla Summit', 4524, 34), new Rental('West Stephenland', 'Tonya Prairie', 4269, 27), new Rental('Zacharyburgh', 'Jones Forks', 8547, 22), new Rental('East Gwendolyn', 'Wilson Groves', 2264, 74), new Rental('Kathryntown', 'Hunter Mews', 2028, 75), new Rental('Lake Pennyhaven', 'Hale Valley', 4769, 69), new Rental('East Maryburgh', 'Marissa Walk', 4590, 86), new Rental('Weeksland', 'Perez Lakes', 7343, 44), new Rental('Longport', 'Pacheco Motorway', 2336, 26), new Rental('New Jonathan', 'Madison Corner', 9401, 46), new Rental('North Dawn', 'Kelley Keys', 2458, 41), new Rental('North Veronica', 'Collins Mission', 4723, 14), new Rental('East Corytown', 'Stacy Locks', 3194, 11), new Rental('Lake Richard', 'Frank Flat', 3530, 80), new Rental('Port Victor', 'Perez Mills', 1658, 40), new Rental('Port Aaron', 'Dylan Drive', 5477, 17), new Rental('Riverashire', 'Frazier Estate', 7115, 11), new Rental('Lake Jason', 'Schwartz Divide', 7401, 92), new Rental('South Joshua', 'Herman Points', 1359, 91), new Rental('Lanceland', 'Amber Gardens', 4878, 69), new Rental('Hernandezchester', 'Tamara Views', 5198, 30), new Rental('Carterberg', 'Sheri Flats', 8765, 46), new Rental('East Margaretborough', 'Bailey Roads', 6052, 15), new Rental('North Timothy', 'Amanda Ports', 4286, 31), new Rental('West Melissa', 'Kristie Radial', 3931, 87), new Rental('New Matthew', 'Monique Turnpike', 4891, 44), new Rental('Hannaborough', 'Matthew Gardens', 8230, 52), new Rental('Port Paulton', 'Cynthia Turnpike', 1624, 72), new Rental('Perezport', 'Adams Pass', 2283, 81), new Rental('West Amanda', 'Davidson Road', 9261, 52), new Rental('Mcconnellmouth', 'Julia Ville', 6825, 86), new Rental('Port Patriciastad', 'Best Mountain', 6136, 58), new Rental('Lisafurt', 'Brown Passage', 7144, 26), new Rental('Rebeccaland', 'Jackson Stream', 3879, 68), new Rental('Cisneroschester', 'Ward Mount', 8247, 80), new Rental('West Kevin', 'Colleen River', 4757, 84), new Rental('Harpershire', 'Russell Branch', 7907, 14), new Rental('Sandrafort', 'Chan Mount', 7647, 55), new Rental('Kellerside', 'Rice Way', 9784, 56), new Rental('East Curtisport', 'Seth Center', 7883, 93), new Rental('Port Paulburgh', 'Wright Fields', 3210, 97), new Rental('Ericbury', 'Henry Grove', 9972, 52), new Rental('Williamsburgh', 'Howard Glens', 3849, 51), new Rental('North Deanview', 'Joseph Crescent', 5897, 35), new Rental('South Amandaview', 'Davis Mountain', 1813, 26), new Rental('Markton', 'Ralph Corner', 3655, 56), new Rental('West Stacyville', 'Susan Corners', 4878, 32), new Rental('East Mollymouth', 'Salazar Circles', 5927, 12), new Rental('Curtisville', 'Stewart Stravenue', 7423, 75), new Rental('Harrisonborough', 'Austin Rue', 8194, 76), new Rental('South Cassandra', 'Mann Way', 1576, 16), new Rental('Lake Angela', 'Frederick Centers', 6813, 80), new Rental('Jermaineside', 'Hart Neck', 9704, 14), new Rental('Gonzalezton', 'Richard Causeway', 1402, 91), new Rental('Anthonyshire', 'Rivera Plains', 3192, 57), new Rental('Lake Danielleburgh', 'Heidi Run', 4739, 47), new Rental('Jacquelinechester', 'Jones Ville', 4737, 43), new Rental('Byrdland', 'Brooks Meadow', 2811, 15), new Rental('East Andrewport', 'Clark Plaza', 6865, 22), new Rental('East Luisfurt', 'Diaz Mission', 1212, 28), new Rental('New Elizabethtown', 'Young Common', 5437, 94), new Rental('Lauraton', 'Larry Plaza', 1487, 38), new Rental('Ramirezport', 'Joan Haven', 2362, 66), new Rental('Williamsland', 'Sherri Greens', 5437, 31), new Rental('Port Gloriamouth', 'Cameron Square', 5449, 28), new Rental('Thomasland', 'Wright Ridge', 4264, 20), new Rental('Johnsonview', 'Huerta Junction', 6046, 74), new Rental('Port Sallyfurt', 'Sue Gateway', 7684, 94), new Rental('Abigailbury', 'Garza Gateway', 7981, 41), new Rental('West Charles', 'Scott Stream', 1193, 95), new Rental('Barnettland', 'Hunt Manor', 4891, 71), new Rental('Blacktown', 'Karen Ports', 8989, 97), new Rental('Port Keith', 'Smith Viaduct', 2143, 42), new Rental('Lake Christopherbury', 'Phillips Shoals', 4116, 35)];
+        rentals = rentals.slice(0, 10);
+    </script>
+    <script src="utils.js"></script>
+    <script>
+        const rentalKey = "RENTAL_TABLE";
+        const db = localStorage;
+        function initLocalStorage() {
+            const allRentalString = db.getItem(rentalKey);
+            if (allRentalString == null) {
+                // only initialize storage if data for rentalKey is empty
+                const value = rentalListToJsonString(rentals);
+                db.setItem(rentalKey, value);
+            }
+        }
+        function rentalListToJsonString(rentals) {
+            // [] to string
+            try {
+                return JSON.stringify(rentals);
+            } catch (error) {
+                return null;
+            }
+        }
+        class RentalRecord {
+            constructor(obj) {
+                this.rental = this.objToRental(obj);
+            }
+            objToRental(obj) {
+                let city = obj["city"];
+                let streetName = obj["streetName"];
+                let streetNumber = obj["streetNumber"];
+                let floorLevel = obj["floorLevel"];
+                if (anyNullOrEmpty(city, streetName, streetNumber, floorLevel)) {
+                    return null;
+                }
+                return new Rental(city, streetName, streetNumber, floorLevel);
+            }
+        }
+        function getAllRentals() {
+            const items = JSON.parse(db.getItem(rentalKey));
+            if (items != null && items.length > 0) {
+                const rentalRecords = items.map(obj => new RentalRecord(obj));
+                return rentalRecords.map(record => record.rental);
+            }
+            return null;
+        }
+        function saveRental(rental) {
+            const rentals = getAllRentals();
+            if (rentals != null && rentals instanceof Array) {
+                rentals.push(rental);
+                db.setItem(rentalKey, JSON.stringify(rentals));
+            } else {
+                db.setItem(rentalKey, JSON.stringify([rental]));
+            }
+        }
+        function removeRental(rental) {
+            const rentals = getAllRentals();
+            if (rentals != null && rentals instanceof Array) {
+                rentals.push(rental);
+                db.setItem(rentalKey, JSON.stringify(rentals));
+            } else {
+                db.setItem(rentalKey, JSON.stringify([rental]));
+            }
+        }
+        function makeRandomStreetNumber() {
+            const MAX = 9999;
+            return Math.floor(Math.random() * max)
+        }
+    </script>
+    <script>
+        function addItemsToList(items, rentalList) {
+            for (let index = 0; index < items.length; index++) {
+                const rentalDiv = makeRentalItem(items[index]);
+                rentalList.append(rentalDiv);
+            }
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#reading_the_response_body
+        async function setImage(imgDiv) {
+            const url = 'https://api.api-ninjas.com/v1/randomimage?category=city';
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        "X-Api-Key": "IxIGwkIzzYGgVsM0ZQokug==jz8dbcGqvelrlgR9",
+                        "Accept": "image/jpg"
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const blob = await response.blob();
+                const objectURL = URL.createObjectURL(blob);
+                imgDiv.style.background = `url('${objectURL}')`;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        function makeRentalItem(rental) {
+            const div = document.createElement("div");
+            div.classList.add("rental");
+            const img = document.createElement("div");
+            img.classList.add("rentalImage");
+            const detail = document.createElement("div");
+            detail.classList.add("rentalDetail");
+            div.appendChild(img);
+            div.appendChild(detail);
+            img.innerText = rental.city;
+            detail.innerHTML = `Street Name: ${rental.streetName}<br/>Street Number: ${rental.streetNumber}<br/>Floor Level: ${rental.floorLevel}`;
+            setImage(img);
+            return div;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            initLocalStorage();
+            const rentalList = document.getElementById("rentalList");
+            const dbRentals = getAllRentals();
+            console.log(dbRentals[0] instanceof Rental); // note: obtaining rental from rental record (s_qns, s_login, s_logged_in)
+            addItemsToList(dbRentals, rentalList);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="rentalListContainer">
+        <h1>All Rentals</h1>
+        <div id="rentalList"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .hidden {
+            visibility: hidden;
+        }
+
+        .visible {
+            visibility: visible;
+        }
+
+        #adminSection {
+            width: 60%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            display: block;
+            overflow: hidden;
+            box-sizing: border-box;
+            border: 1px solid black;
+            align-items: center;
+            justify-content: center;
+        }
+
+        code {
+            background-color: yellow;
+            box-sizing: border-box;
+            border: 1px dashed black;
+        }
+    </style>
+    <script src="models.js"></script>
+    <script src="utils.js"></script>
+    <script>
+        function redirectToLogin() {
+            window.location.href = "login.html";
+        }
+        document.addEventListener("DOMContentLoaded", (e) => {
+            const users = getAllUsers();
+            if (users == null) {
+                redirectToLogin();
+            }
+            const searchUsers = users.filter(user => user.isLoggedIn);
+            if (searchUsers == null || searchUsers.length == 0) {
+                redirectToLogin();
+            }
+            const searchUser = searchUsers[0];
+            console.log(searchUser);
+            const email = document.getElementById("email");
+            const firstName = document.getElementById("firstName");
+            const lastName = document.getElementById("lastName");
+            const isAdmin = document.getElementById("isAdmin");
+
+            email.innerText = searchUser.email;
+            firstName.innerText = searchUser.firstName;
+            lastName.innerText = searchUser.lastName;
+            isAdmin.innerText = searchUser.isAdmin;
+
+            const adminSection = document.getElementById("adminSection");
+            const nonAdminSection = document.getElementById("nonAdminSection");
+
+            adminSection.classList.remove("visible");
+            // adminSection.classList.remove("hidden");
+            nonAdminSection.classList.remove("visible");
+            // nonAdminSection.classList.remove("hidden");
+
+            if (searchUser.isAdmin) {
+                adminSection.classList.add("visible");
+            } else {
+                nonAdminSection.classList.add("visible");
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <p>
+    <h1>first scenario</h1>
+    </p>
+    <p>
+    <h2 id="email"></h2>
+    <span id="firstName"></span>
+    <span id="lastName"></span>
+    <br />
+    <span>isAdmin: <span id="isAdmin"></span></span>
+
+    </p>
+    <div id="formSection">
+        <div id="adminSection" class="hidden">
+            <code>you are an admin, so you can see this section</code>
+            <form id="addRentalForm">
+                <input type="text" placeholder="street name" />
+                <input type="text" placeholder="street number" />
+                <input type="submit" value="add rental" />
+            </form>
+        </div>
+        <div id="nonAdminSection" class="hidden">
+            <code>you are not an admin</code>
+        </div>
+    </div>
+</body>
+
+</html>

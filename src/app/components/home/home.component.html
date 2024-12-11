@@ -1,0 +1,27 @@
+<div>
+    <div id="home">
+        <nav>
+            <ul>
+                <li>
+                    <a routerLink="feed">feed</a>
+                </li>
+                <li>
+                    <a routerLink="reel">reel</a>
+                </li>
+                <li>
+                    <a routerLink="search">search</a>
+                </li>
+                <li>
+                    <a routerLink="search" [queryParams]="{'id':123}">search-123</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div id="route">
+        <div id="wrapper">
+            <h3>home page</h3>
+            <input type="button" value="logout" (click)="tryLogout()"/>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

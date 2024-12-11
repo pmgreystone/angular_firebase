@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * {
+      font-family: Verdana;
+    }
+
+    body {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    h2 {
+      width: 100%;
+      height: 50px;
+      background-color: #eee;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    div.borderbox {
+      padding: 5px;
+      width: 50%;
+      height: auto;
+      box-sizing: border-box;
+      border: 1px solid black;
+      border-radius: 3px;
+    }
+
+    div.usersList {
+      background-color: rgb(79, 189, 79);
+    }
+
+    div.addUser {
+      background-color: rgb(134, 134, 223);
+    }
+
+    div.removeUser {
+      background-color: rgb(196, 116, 116);
+    }
+
+    a.icon {
+      box-sizing: border-box;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 2px;
+      margin-left: 10px;
+      background-color: #ddd;
+      color: black;
+      cursor: pointer;
+      border: 1px solid #aaa;
+      box-shadow: 0px 0px 2px #777;
+      transition: box-shadow 0.5s ease-in-out, border 0.1s ease-in-out,
+        background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      transition-delay: 0.1s;
+    }
+
+    a.icon:active {
+      box-shadow: 0px 0px 0px;
+      border: 1px solid #222;
+      background-color: #333;
+      color: white;
+    }
+
+    a.icon-delete-all {
+      box-sizing: border-box;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 2px;
+      margin-left: 10px;
+      background-color: #ac1616;
+      color: white;
+      cursor: pointer;
+      border: 1px solid #480e0e;
+      box-shadow: 0px 0px 2px #441414;
+      transition: box-shadow 0.5s ease-in-out, border 0.1s ease-in-out,
+        background-color 0.2s ease-in-out;
+      transition-delay: 0.1s;
+    }
+
+    a.icon-delete-all:active {
+      box-shadow: 0px 0px 0px;
+      border: 1px solid #222;
+      background-color: #333;
+    }
+  </style>
+  <script src="models.js"></script>
+  <script src="utils.js"></script>
+  <script>
+    function jsonStringToUsersList(value) {
+      // string to []
+      try {
+        const objList = JSON.parse(value);
+        console.log("is object type of user?");
+        console.log(objList[0] instanceof User);
+      } catch (error) {
+        return null;
+      }
+    }
+    function removeUserFromList(name, list) {
+      // 1. looks for name in the list, to get index i.e. position
+      // 2. uses index from above step to remove name from the list
+      // discussion: call by value, call by reference
+      const index = list.indexOf(name);
+      // remove 1 element at index
+      list.splice(index, 1);
+    }
+  </script>
+  <script>
+    // array of two dummy user accounts
+    let mockUsers = [
+      new User(
+        "steve@gmail.com",
+        "pwd",
+        "steve",
+        "greystone",
+        new Date("2000/15/04"),
+        true,
+        false,
+        true
+      ),
+      new User(
+        "stevy@gmail.com",
+        "pwd",
+        "stevy",
+        "greystone",
+        new Date("2000/15/04"),
+        true,
+        true,
+        false
+      )
+    ];
+
+    function initLocalStorage() {
+      const userString = db.getItem(usersKey);
+      if (userString == null) {
+        // only initialize storage if data for usersKey is empty
+        const value = usersListToJsonString(mockUsers);
+        if (value != null) {
+          db.setItem(usersKey, value);
+        } else {
+          alert("invalid data in usersListToJsonString");
+        }
+      }
+    }
+    function removeUserFromStorage(name) {
+      let userString = db.getItem(usersKey);
+      let userList = jsonStringToUsersList(userString);
+      // remove user from the list
+      removeUserFromList(name, userList);
+      // convert list to string
+      userString = usersListToJsonString(userList);
+      // save string to db
+      db.setItem(usersKey, userString);
+    }
+    function addUserToStorage(name) {
+      let userString = db.getItem(usersKey);
+      let usersList = jsonStringToUsersList(userString);
+      // add user to the list
+      usersList.push(name);
+      // convert list to string
+      userString = usersListToJsonString(usersList);
+      // save string to db
+      db.setItem(usersKey, userString);
+    }
+    function eraseAll() {
+      db.clear();
+    }
+  </script>
+  <script>
+    /* connect local storage javascript to html via dom api */
+    function uiCreateListItem(userObj) {
+      const uiItem = document.createElement("li");
+      uiItem.innerHTML = `<ul><li>${userObj.email}</li><li>${userObj.firstName}</li><li>${userObj.lastName}</li></ul>`;
+      return uiItem;
+    }
+    function uiShowUsers() {
+      const uiUsersListId = "usersList";
+      const uiUsersList = document.getElementById(uiUsersListId);
+      const usersList = getUsersFromStorage();
+      uiUsersList.innerHTML = "";
+
+      if (!usersList || usersList.length == 0) {
+        return;
+      }
+
+      for (let i = 0; i < usersList.length; i++) {
+        const user = usersList[i];
+        const uiItem = uiCreateListItem(user);
+        uiUsersList.appendChild(uiItem);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function (e) {
+      initLocalStorage();
+    });
+  </script>
+</head>
+
+<body>
+  <h2>
+    Users List <a class="icon" onclick="uiShowUsers()">⛁</a><a class="icon-delete-all" onclick="eraseAll()">⛁</a>
+  </h2>
+  <div class="borderbox usersList">
+    <ul id="usersList"></ul>
+  </div>
+  <h2>Add User</h2>
+  <div class="borderbox addUser"></div>
+  <h2>Remove User</h2>
+  <div class="borderbox removeUser"></div>
+</body>
+
+</html>

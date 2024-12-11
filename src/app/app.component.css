@@ -1,0 +1,19 @@
+nav > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ddd;
+}
+nav li {
+    float: left;
+}
+nav li {
+    margin-left: 10px;
+}
+nav li:first-child {
+    margin-left: 0;
+}
+li > a {
+    display: inline;
+}

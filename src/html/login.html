@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            gap: 10px;
+            background-color: green;
+            width: 70%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+        }
+    </style>
+    <script src="models.js"></script>
+    <script src="utils.js"></script>
+    <script>
+        function formSubmit(e) {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const users = getAllUsers();
+            const searchUser = users.filter(user => user.email == email && user.password == password);
+            if (searchUser != null) {
+                window.location.href = "home.html";
+            }
+        }
+        document.addEventListener("DOMContentLoaded", (e) => {
+            var loginForm = document.getElementById("loginForm");
+            loginForm.addEventListener("submit", formSubmit);
+        });
+    </script>
+</head>
+
+<body>
+    <form action="#" id="loginForm">
+        <input name="email" type="text" placeholder="email" />
+        <input name="password" type="password" placeholder="password" />
+        <input type="submit" value="submit" />
+    </form>
+</body>
+
+</html>

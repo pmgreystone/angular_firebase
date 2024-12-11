@@ -1,0 +1,9 @@
+{
+    "profiles": [
+      { "username":"bc", "password":"bc", "isAdmin": false },
+      { "username":"admin", "password":"admin", "isAdmin":true },
+      { "username":"greystone", "password":"greystone", "isAdmin": true },
+      { "username":"vancouver", "password":"vancouver", "isAdmin": false },
+      { "username":"granville", "password":"granville", "isAdmin": true }
+    ]
+}

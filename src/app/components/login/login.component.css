@@ -1,0 +1,28 @@
+div#wrapper {
+    width: 100vw;
+    height: fit-content;
+    background-color: rgb(156, 156, 190);
+}
+h2 {
+    padding: 10px;
+    color: white;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: fit-content;
+    gap: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+input[type="button"] {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 150px;
+    height: fit-content;
+}

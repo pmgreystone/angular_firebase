@@ -1,0 +1,11 @@
+<h3>ADMIN</h3>
+<div>
+    <ul>
+        <li *ngFor="let profile of getProfiles()">
+            {{profile.username}}
+        </li>
+    </ul>
+</div>
+<form>
+    <input type="button" value="logout" (click)="tryLogout()"/>
+</form>

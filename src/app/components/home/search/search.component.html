@@ -1,0 +1,29 @@
+<div id="wrapper">
+    <div id="search" *ngIf="!searchIdEmpty()">
+        <div class="videos">
+            <div class="video_search" *ngFor="let video of filterVideoModelsById()">
+                <iframe class="videoframe" id="ytplayer" type="text/html" width="320" height="180"
+                [src]="videoIdToUrl(video.id.toString())"
+                frameborder="0"></iframe>
+                <div class="description">
+                    <div class="title">{{video.title}}</div>
+                    <div class="video_id">{{video.id}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="all" *ngIf="searchIdEmpty()">
+        <div class="videos">
+            <div class="video" *ngFor="let video of videoModels">
+                <iframe class="videoframe" id="ytplayer"
+                type="text/html" width="320" height="180"
+                [src]="videoIdToUrl(video.id.toString())"
+                frameborder="0"></iframe>
+                <div class="description">
+                    <div class="title">{{video.title}}</div>
+                    <div class="video_id">{{video.id}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
